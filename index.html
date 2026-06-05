@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Conversor de temperatura</title>
+    <style>
+
+        body {
+            font-family: 'Courier New', Courier, monospace, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        input {
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 8px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* este div lo tengo escondido hasta que el usuario convierta */
+        #resultado {
+            margin-top: 20px;
+            font-size: 18px;
+            display: none;
+        }
+
+        /* el error lo puse en rojo para que se vea */
+        #error {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Conversor de Temperatura</h1>
+
+    <p>Ingresa los grados en Celsius:</p>
+
+    <!-- aqui escribe el usuario la temperatura -->
+    <input type="text" id="inputCelsius" placeholder="Ingresa solo números">
+
+    <br>
+
+    <!-- este boton llama mi funcion convertir() -->
+    <button onclick="convertir()">Convertir</button>
+
+    <!-- este parrafo solo aparece si el usuario no puso un numero -->
+    <p id="error">Ingresa un numero valido por favor</p>
+
+    <!-- aqui es donde van a salir los 3 resultados -->
+    <div id="resultado">
+        <p>Celsius: <span id="celsius"></span> °C</p>
+        <p>Fahrenheit: <span id="fahrenheit"></span></p>
+        <p>Kelvin: <span id="kelvin"></span></p>
+    </div>
+
+    <script>
+
+        function convertir() {
+
+            // agarro el valor del input
+            let entrada = document.getElementById("inputCelsius").value;
+
+            // lo paso a numero porque el input regresa texto
+            let celsius = parseFloat(entrada);
+
+            // si no es numero muestro el error y paro todo
+            if (isNaN(celsius)) {
+                document.getElementById("error").style.display = "block";
+                document.getElementById("resultado").style.display = "none";
+                return;
+            }
+
+            // si llego aqui es porque si era numero, escondo el error
+            document.getElementById("error").style.display = "none";
+
+            // aqui aplico las dos formulas
+            let fahrenheit = (celsius * 9 / 5) + 32;
+            let kelvin = celsius + 273.15;
+
+            // esto es para verificar en consola que este saliendo bien
+            console.log("Celsius: " + celsius);
+            console.log("Fahrenheit: " + fahrenheit);
+            console.log("Kelvin: " + kelvin);
+
+            // pongo los resultados en cada span del HTML
+            document.getElementById("celsius").innerHTML = celsius;
+            document.getElementById("fahrenheit").innerHTML = fahrenheit;
+            document.getElementById("kelvin").innerHTML = kelvin;
+
+            // hago visible el div de resultados
+            document.getElementById("resultado").style.display = "block";
+        }
+
+    </script>
+
+</body>
+</html>
